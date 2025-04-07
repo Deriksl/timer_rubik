@@ -1,10 +1,11 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timer_rubik/views/records.dart';
-import 'dart:async';
-import 'package:timer_rubik/views/scramble.dart';
 import 'package:timer_rubik/providers/scramble_providers.dart';
 import 'package:timer_rubik/providers/times_providers.dart';
+import 'package:timer_rubik/services/notification_service.dart';
+import 'package:timer_rubik/views/records.dart';
+import 'package:timer_rubik/views/scramble.dart';
 
 class RubikTimer extends StatefulWidget {
   const RubikTimer({super.key});
@@ -47,6 +48,9 @@ class _RubikTimerState extends State<RubikTimer> {
       timesProvider.addTime(_time);
       _time = 0.0;
     });
+
+    // Verificar si es un nuevo récord y notificar
+    NotificationService.checkAndNotifyNewRecord(timesProvider);
   }
 
   void _generateNewScramble() {
