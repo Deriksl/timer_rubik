@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_rubik/providers/times_providers.dart';
 
+/// Widget que muestra estadísticas rápidas como el último tiempo registrado,
+/// el mejor tiempo personal (PB) y promedios como Ao5, Ao12, etc.
 class RecordsTimes extends StatelessWidget {
   const RecordsTimes({super.key});
 
+  /// Retorna el último tiempo registrado.
   String getCurrentTime(List<Map<String, dynamic>> times) {
     if (times.isEmpty) {
       return '';
@@ -12,6 +15,7 @@ class RecordsTimes extends StatelessWidget {
     return times.last['time'].toString();
   }
 
+  /// Calcula y retorna el mejor tiempo personal (PB).
   double? getPB(List<Map<String, dynamic>> times) {
     List<double> sortedTimes = times
         .map((t) => double.tryParse(t['time'].toString()) ?? double.infinity)
@@ -21,6 +25,8 @@ class RecordsTimes extends StatelessWidget {
     return sortedTimes.isNotEmpty ? sortedTimes.first : null;
   }
 
+  /// Calcula el promedio de los últimos 'howMany' tiempos,
+  /// ignorando el mejor y el peor (estilo WCA).
   String getPBao(int howMany, List<Map<String, dynamic>> times) {
     if (times.length < howMany) {
       return "--";

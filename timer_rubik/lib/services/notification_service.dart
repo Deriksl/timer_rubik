@@ -2,11 +2,15 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:timer_rubik/providers/times_providers.dart';
 
+/// Servicio para gestionar todas las notificaciones de la app.
 class NotificationService {
+  
+  /// Inicializa los canales de notificación y solicita permiso si es necesario.
   static Future<void> initializeNotifications() async {
     await AwesomeNotifications().initialize(
       null,
       [
+        // Canal para notificaciones generales
         NotificationChannel(
           channelGroupKey: 'basic_channel_group',
           channelKey: 'basic_channel',
@@ -21,6 +25,7 @@ class NotificationService {
           soundSource: 'resource://raw/notification_sound',
           criticalAlerts: true,
         ),
+        // Canal para notificaciones relacionadas con récords personales
         NotificationChannel(
           channelGroupKey: 'records_channel_group',
           channelKey: 'records_channel',
@@ -49,6 +54,7 @@ class NotificationService {
       debug: true
     );
 
+    // Solicita permiso para enviar notificaciones si no está permitido
     await AwesomeNotifications().isNotificationAllowed().then((isAllowed) async {
       if (!isAllowed) {
         await AwesomeNotifications().requestPermissionToSendNotifications();
@@ -56,6 +62,7 @@ class NotificationService {
     });
   }
 
+  /// Muestra una notificación simple con título y cuerpo.
   static Future<void> showNotification({
     required String title,
     required String body,
@@ -66,11 +73,12 @@ class NotificationService {
         channelKey: 'basic_channel',
         title: title,
         body: body,
-        notificationLayout: NotificationLayout.Default, // Corregido aquí
+        notificationLayout: NotificationLayout.Default,
       ),
     );
   }
 
+  /// Programa un recordatorio diario a las 7:00 PM para motivar al usuario.
   static Future<void> scheduleDailyReminder() async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
@@ -78,7 +86,7 @@ class NotificationService {
         channelKey: 'basic_channel',
         title: '¡Hora de practicar!',
         body: 'No olvides practicar con tu cubo Rubik hoy',
-        notificationLayout: NotificationLayout.Default, // Corregido aquí
+        notificationLayout: NotificationLayout.Default,
       ),
       schedule: NotificationCalendar(
         hour: 19,
@@ -90,6 +98,8 @@ class NotificationService {
     );
   }
 
+  /// Verifica si el último tiempo registrado es un nuevo PB (Personal Best)
+  /// y si lo es, lanza una notificación celebrando el nuevo récord.
   static Future<void> checkAndNotifyNewRecord(
       TimesProvider timesProvider) async {
     if (timesProvider.times.isEmpty) return;
@@ -105,13 +115,15 @@ class NotificationService {
           channelKey: 'records_channel',
           title: '¡Nuevo récord personal! 🎉',
           body: 'Has establecido un nuevo PB: ${currentTime.toStringAsFixed(2)} segundos',
-          notificationLayout: NotificationLayout.BigText, // Corregido aquí
+          notificationLayout: NotificationLayout.BigText,
           payload: {'type': 'new_record'},
         ),
       );
     }
   }
 
+  /// Muestra una notificación con sonido personalizado.
+  /// Aunque recibe un archivo de sonido como parámetro, actualmente no lo utiliza.
   static Future<void> showNotificationWithCustomSound({
     required String title,
     required String body,
@@ -123,7 +135,7 @@ class NotificationService {
         channelKey: 'records_channel',
         title: title,
         body: body,
-        notificationLayout: NotificationLayout.Default, // Corregido aquí
+        notificationLayout: NotificationLayout.Default,
       ),
     );
   }
