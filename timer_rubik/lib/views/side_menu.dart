@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timer_rubik/screens/bluetooth_screen.dart';
 import 'package:timer_rubik/views/algorithms_screen.dart';
 import 'package:timer_rubik/widgets/icons_side_menu.dart';
 import 'package:timer_rubik/widgets/titles_side_menu.dart';
@@ -40,6 +41,11 @@ class _SideMenuState extends State<SideMenu> {
                 destination: AlgorithmsScreen(
                   algorithmType: 'OLL',
                 ),
+              ),
+              const IconsSideMenu(
+                icon: Icons.bluetooth,
+                title: 'Bluetooth',
+                destination: BluetoothScreen(),
               ),
             ],
           ),
