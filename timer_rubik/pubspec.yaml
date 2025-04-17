@@ -15,8 +15,13 @@ dependencies:
   camera: ^0.11.0+2
   awesome_notifications: ^0.10.1  # Versión más reciente y estable
   flutter_blue_plus: ^1.31.15
+  flutter_launcher_icons: ^0.13.1
 
-
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo_timer_rubik.png"
+  adaptive_icon_background: "#FFFFFF"  # Fondo para Android adaptable
 
 
 dev_dependencies:
@@ -43,3 +48,4 @@ flutter:
     - assets/16.png
     - assets/17.png
     - assets/banner.jpeg
+    - assets/logo_timer_rubik.png
