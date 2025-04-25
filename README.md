@@ -1,5 +1,3 @@
-<p> primera imagen de mi aplicacion </p>
-<img src="/1.jpg" alt="Descripción de la imagen" height="200px" />
-<p> segunda imagen </p>
-<img src="/2.jpg" alt="Descripción de la imagen" height="200px" />
-
+| Imagen 1 | Imagen 2 |
+|----------|----------|
+| <img src="/1.jpg" alt="Imagen 1" height="350" /> | <img src="/2.jpg" alt="Imagen 2" height="350" /> |
